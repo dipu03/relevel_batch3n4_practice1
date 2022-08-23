@@ -1,8 +1,8 @@
-//Job->title,description,companybelongTo,[studentsAppliedTojob],jobStatus,postedByHR(hrUserId)
+//Job->title,description,companybelongTo,[applicantsAppliedTojob],jobStatus,postedByHR(hrUserId)
 
 const mongoose = require("mongoose");
 
-const { jobStatus } = require("../utils/constants");
+const { jobStatuses } = require("../utils/constants");
 
 const jobSchema = new mongoose.Schema(
   {
@@ -16,9 +16,9 @@ const jobSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: jobStatus.active,
+      default: jobStatuses.active,
     },
-    students: {
+    applicants: {
       type: [mongoose.SchemaTypes.ObjectId],
       ref: "User",
     },

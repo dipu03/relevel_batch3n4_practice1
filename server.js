@@ -1,5 +1,3 @@
-const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const dbConfig = require("./configs/db.config");
@@ -7,9 +5,6 @@ const serverConfig = require("./configs/server.config");
 const User = require("./models/user.model");
 const Company = require("./models/company.model");
 const Job = require("./models/job.model");
-//middelwares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 /**
  * Initialize the connection to the mongoDB
@@ -50,14 +45,14 @@ async function init() {
     console.log(adminUser);
     console.log(company);
 
-    const studentUser = await User.create({
-      name: "student",
-      userId: "student",
+    const applicantUser = await User.create({
+      name: "applicant",
+      userId: "applicant",
       password: bcrypt.hashSync("Welcome1", 8),
-      email: "student@email.com",
-      userType: "STUDENT",
+      email: "applicant@email.com",
+      userType: "APPLICANT",
     });
-    console.log(studentUser);
+    console.log(applicantUser);
 
     //find the company id and and then create a hr of that company
     const hrUser = await User.create({
@@ -72,7 +67,7 @@ async function init() {
     console.log(hrUser);
 
     //now place the hr in the company too
-    company.hr.push(hrUser._id);
+    company.hrs.push(hrUser._id);
     await company.save(); //save it in db
 
     console.log("after saving company", company);
@@ -89,18 +84,15 @@ async function init() {
     await company.save(); //save it in db
     console.log("Company After", company);
 
-    //student applying a job
-    job.students.push(studentUser._id);
+    //applicant applying a job
+    job.applicants.push(applicantUser._id);
     await job.save();
-    //also update the studentUser
-    studentUser.jobsApplied.push(job._id);
+    //also update the applicantUser
+    applicantUser.jobsApplied.push(job._id);
+    await applicantUser.save();
     console.log("After", job);
-    console.log("After", studentUser);
+    console.log("After", applicantUser);
   } catch (err) {
     console.log("err in db initialization , " + err);
   }
 }
-
-app.listen(serverConfig.PORT, () => {
-  console.log("Started the server on the PORT number : ", serverConfig.PORT);
-});

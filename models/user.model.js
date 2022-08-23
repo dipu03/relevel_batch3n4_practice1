@@ -32,8 +32,8 @@ const userSchema = new mongoose.Schema(
     },
     userType: {
       type: String,
-      default: userTypes.student,
-      enum: [userTypes.admin, userTypes.student, userTypes.hr],
+      default: userTypes.applicant,
+      enum: [userTypes.admin, userTypes.applicant, userTypes.hr],
     },
     userStatus: {
       type: String,

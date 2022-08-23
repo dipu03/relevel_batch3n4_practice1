@@ -20,8 +20,8 @@ const companySchema = new mongoose.Schema(
       type: [mongoose.SchemaTypes.ObjectId],
       ref: "Job",
     },
-    hr: {
-      type: [mongoose.SchemaTypes.UserId],
+    hrs: {
+      type: [mongoose.SchemaTypes.ObjectId],
       ref: "User",
     },
   },

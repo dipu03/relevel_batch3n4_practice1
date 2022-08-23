@@ -3,7 +3,7 @@
 module.exports = {
   userTypes: {
     admin: "ADMIN",
-    student: "STUDENT",
+    applicant: "APPLICANT",
     hr: "HR",
   },
   userStatuses: {
@@ -16,7 +16,7 @@ module.exports = {
     rejected: "REJECTED",
     pending: "PENDING",
   },
-  jobStatus: {
+  jobStatuses: {
     active: "ACTIVE",
     expired: "EXPIRED",
   },
