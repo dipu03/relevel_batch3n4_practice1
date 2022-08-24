@@ -17,6 +17,7 @@ const jobSchema = new mongoose.Schema(
     status: {
       type: String,
       default: jobStatuses.active,
+      enum: [jobStatuses.active, jobStatuses.expired],
     },
     applicants: {
       type: [mongoose.SchemaTypes.ObjectId],

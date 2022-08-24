@@ -15,6 +15,11 @@ const companySchema = new mongoose.Schema(
     verified: {
       type: String,
       default: companyVerificationStatuses.pending,
+      enum: [
+        companyVerificationStatuses.approved,
+        companyVerificationStatuses.pending,
+        companyVerificationStatuses.rejected,
+      ],
     },
     jobsPosted: {
       type: [mongoose.SchemaTypes.ObjectId],
