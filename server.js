@@ -1,6 +1,13 @@
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const User = require("./models/user.model");
 const Company = require("./models/company.model");
@@ -9,14 +16,14 @@ const Job = require("./models/job.model");
 /**
  * Initialize the connection to the mongoDB
  */
-mongoose.connect(dbConfig.DB_URI);
+mongoose.connect(serverConfig.DB_URI);
 const db = mongoose.connection;
 db.on("error", () => {
   console.log("Error while connecting to MongoDB");
 });
 db.once("open", () => {
   console.log("Connected to mongoDB");
-  init();
+  // init();
 });
 
 /**
@@ -96,3 +103,9 @@ async function init() {
     console.log("err in db initialization , " + err);
   }
 }
+
+
+app.listen(serverConfig.PORT, () => {
+  console.log("app is runing at port : " , serverConfig.PORT)
+})
+
